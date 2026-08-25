@@ -12,19 +12,40 @@
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="logo">
-                <i class="fas fa-chart-line"></i>
-                <h1>Lalit AI</h1>
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+                        <path d="M12 28V12h4v8h8v-8h4v16h-4v-4h-8v4h-4Z" fill="white"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Lalit AI</h1>
+                    <p>Financial Analyst</p>
+                </div>
             </div>
             <nav class="navigation">
                 <ul>
-                    <li><a href="#" class="nav-link active" data-tab="chat"><i class="fas fa-comments"></i> Chat</a></li>
-                    <li><a href="#" class="nav-link" data-tab="stocks"><i class="fas fa-chart-pie"></i> Stock Analysis</a></li>
-                    <li><a href="#" class="nav-link" data-tab="accounting"><i class="fas fa-calculator"></i> Accounting</a></li>
-                    <li><a href="#" class="nav-link" data-tab="portfolio"><i class="fas fa-wallet"></i> Portfolio</a></li>
-                    <li><a href="#" class="nav-link" data-tab="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="#" class="nav-link active" data-tab="chat"><i class="fas fa-comments"></i> <span>Chat</span></a></li>
+                    <li><a href="#" class="nav-link" data-tab="stocks"><i class="fas fa-chart-pie"></i> <span>Stock Analysis</span></a></li>
+                    <li><a href="#" class="nav-link" data-tab="accounting"><i class="fas fa-calculator"></i> <span>Accounting</span></a></li>
+                    <li><a href="#" class="nav-link" data-tab="portfolio"><i class="fas fa-wallet"></i> <span>Portfolio</span></a></li>
+                    <li><a href="#" class="nav-link" data-tab="settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">L</div>
+                    <div class="user-details">
+                        <p class="user-name">Lalit</p>
+                        <p class="user-status">Active</p>
+                    </div>
+                </div>
                 <a href="#" class="clear-history"><i class="fas fa-trash"></i> Clear Chat</a>
             </div>
         </aside>
@@ -42,6 +63,7 @@
                         <span class="status-dot"></span>
                         <span>Ready</span>
                     </div>
+                    <button class="help-btn"><i class="fas fa-question-circle"></i></button>
                 </div>
             </header>
 
@@ -52,32 +74,44 @@
                     <div class="chat-container">
                         <div class="chat-messages" id="chatMessages">
                             <div class="welcome-message">
+                                <div class="welcome-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
                                 <h3>Welcome to Lalit AI</h3>
                                 <p>Your AI-powered financial analyst is ready to help!</p>
                                 <div class="quick-prompts">
-                                    <button class="quick-prompt" onclick="sendMessage('What are today\'s top stock movers?')">
-                                        📊 Top Movers
+                                    <button class="quick-prompt" onclick="sendMessage('What are today\\'s top stock movers?')">
+                                        <i class="fas fa-arrow-up-down"></i>
+                                        <span>📊 Top Movers</span>
                                     </button>
                                     <button class="quick-prompt" onclick="sendMessage('Analyze Apple (AAPL) stock')">
-                                        🍎 AAPL Analysis
+                                        <i class="fas fa-apple"></i>
+                                        <span>🍎 AAPL Analysis</span>
                                     </button>
-                                    <button class="quick-prompt" onclick="sendMessage('What\'s the market sentiment today?')">
-                                        📈 Market Sentiment
+                                    <button class="quick-prompt" onclick="sendMessage('What\\'s the market sentiment today?')">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>📈 Market Sentiment</span>
+                                    </button>
+                                    <button class="quick-prompt" onclick="sendMessage('Calculate my portfolio returns')">
+                                        <i class="fas fa-wallet"></i>
+                                        <span>💰 Portfolio Returns</span>
                                     </button>
                                 </div>
                             </div>
                         </div>
                         <div class="chat-input-area">
                             <form id="chatForm" onsubmit="handleChatSubmit(event)">
-                                <input 
-                                    type="text" 
-                                    id="chatInput" 
-                                    placeholder="Ask about stocks, accounting, or market analysis..." 
-                                    autocomplete="off"
-                                >
-                                <button type="submit" class="send-btn">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
+                                <div class="input-wrapper">
+                                    <input 
+                                        type="text" 
+                                        id="chatInput" 
+                                        placeholder="Ask about stocks, accounting, or market analysis..." 
+                                        autocomplete="off"
+                                    >
+                                    <button type="submit" class="send-btn" title="Send message">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -86,10 +120,17 @@
                 <!-- Stock Analysis Tab -->
                 <div id="stocks" class="tab-content">
                     <div class="stocks-container">
-                        <h3>Stock Analysis</h3>
+                        <div class="section-header">
+                            <h3><i class="fas fa-chart-pie"></i> Stock Analysis</h3>
+                            <p>Search and analyze any stock in real-time</p>
+                        </div>
                         <div class="search-section">
-                            <input type="text" id="stockSymbol" placeholder="Enter stock symbol (e.g., AAPL)">
-                            <button onclick="analyzeStock()">Analyze</button>
+                            <div class="search-box">
+                                <input type="text" id="stockSymbol" placeholder="Enter stock symbol (e.g., AAPL, GOOGL, TSLA)">
+                                <button onclick="analyzeStock()" class="search-btn">
+                                    <i class="fas fa-search"></i> Analyze
+                                </button>
+                            </div>
                         </div>
                         <div id="stockResults" class="results-container"></div>
                     </div>
@@ -98,26 +139,45 @@
                 <!-- Accounting Tab -->
                 <div id="accounting" class="tab-content">
                     <div class="accounting-container">
-                        <h3>Accounting & Finance</h3>
+                        <div class="section-header">
+                            <h3><i class="fas fa-calculator"></i> Accounting & Finance</h3>
+                            <p>Track your income, expenses, and financial summary</p>
+                        </div>
                         <div class="accounting-grid">
                             <div class="card">
-                                <h4>Transaction Tracking</h4>
+                                <div class="card-header">
+                                    <h4><i class="fas fa-plus-circle"></i> Add Transaction</h4>
+                                </div>
                                 <form id="transactionForm">
-                                    <input type="text" placeholder="Description">
-                                    <input type="number" placeholder="Amount">
-                                    <select>
-                                        <option>Income</option>
-                                        <option>Expense</option>
+                                    <input type="text" placeholder="Description" required>
+                                    <input type="number" placeholder="Amount" step="0.01" required>
+                                    <select required>
+                                        <option value="">Select Type</option>
+                                        <option value="income">Income</option>
+                                        <option value="expense">Expense</option>
                                     </select>
-                                    <button type="submit">Add Transaction</button>
+                                    <button type="submit" class="btn-primary">
+                                        <i class="fas fa-plus"></i> Add Transaction
+                                    </button>
                                 </form>
                             </div>
                             <div class="card">
-                                <h4>Financial Summary</h4>
-                                <div id="financialSummary">
-                                    <p>Total Income: $0</p>
-                                    <p>Total Expenses: $0</p>
-                                    <p>Net Profit/Loss: $0</p>
+                                <div class="card-header">
+                                    <h4><i class="fas fa-chart-bar"></i> Financial Summary</h4>
+                                </div>
+                                <div id="financialSummary" class="summary-stats">
+                                    <div class="stat">
+                                        <div class="stat-label">Total Income</div>
+                                        <div class="stat-value income">$0.00</div>
+                                    </div>
+                                    <div class="stat">
+                                        <div class="stat-label">Total Expenses</div>
+                                        <div class="stat-value expense">$0.00</div>
+                                    </div>
+                                    <div class="stat">
+                                        <div class="stat-label">Net Profit/Loss</div>
+                                        <div class="stat-value net">$0.00</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -127,20 +187,29 @@
                 <!-- Portfolio Tab -->
                 <div id="portfolio" class="tab-content">
                     <div class="portfolio-container">
-                        <h3>Portfolio Management</h3>
+                        <div class="section-header">
+                            <h3><i class="fas fa-wallet"></i> Portfolio Management</h3>
+                            <p>Manage your stock holdings and track performance</p>
+                        </div>
                         <div class="portfolio-grid">
                             <div class="card">
-                                <h4>Add Stock</h4>
+                                <div class="card-header">
+                                    <h4><i class="fas fa-plus"></i> Add Stock</h4>
+                                </div>
                                 <form id="portfolioForm">
-                                    <input type="text" placeholder="Symbol">
-                                    <input type="number" placeholder="Quantity">
-                                    <input type="number" placeholder="Purchase Price">
-                                    <button type="submit">Add to Portfolio</button>
+                                    <input type="text" placeholder="Stock Symbol (e.g., AAPL)" required>
+                                    <input type="number" placeholder="Quantity" min="1" required>
+                                    <input type="number" placeholder="Purchase Price" step="0.01" required>
+                                    <button type="submit" class="btn-primary">
+                                        <i class="fas fa-plus"></i> Add to Portfolio
+                                    </button>
                                 </form>
                             </div>
                             <div class="card">
-                                <h4>Your Holdings</h4>
-                                <div id="portfolioList"></div>
+                                <div class="card-header">
+                                    <h4><i class="fas fa-list"></i> Your Holdings</h4>
+                                </div>
+                                <div id="portfolioList" class="portfolio-table"></div>
                             </div>
                         </div>
                     </div>
@@ -149,37 +218,48 @@
                 <!-- Settings Tab -->
                 <div id="settings" class="tab-content">
                     <div class="settings-container">
-                        <h3>Settings</h3>
+                        <div class="section-header">
+                            <h3><i class="fas fa-cog"></i> Settings</h3>
+                            <p>Customize your Lalit AI experience</p>
+                        </div>
                         <div class="settings-grid">
-                            <div class="setting-item">
-                                <label>API Model</label>
+                            <div class="settings-card">
+                                <label><i class="fas fa-brain"></i> API Model</label>
                                 <select id="modelSelect">
                                     <option>GPT-4</option>
                                     <option>GPT-3.5 Turbo</option>
                                 </select>
                             </div>
-                            <div class="setting-item">
-                                <label>Temperature</label>
-                                <input type="range" min="0" max="1" step="0.1" value="0.7">
-                                <span id="tempValue">0.7</span>
+                            <div class="settings-card">
+                                <label><i class="fas fa-fire"></i> Temperature</label>
+                                <div class="slider-container">
+                                    <input type="range" min="0" max="1" step="0.1" value="0.7">
+                                    <span id="tempValue">0.7</span>
+                                </div>
                             </div>
-                            <div class="setting-item">
-                                <label>Max Tokens</label>
+                            <div class="settings-card">
+                                <label><i class="fas fa-keyboard"></i> Max Tokens</label>
                                 <input type="number" value="2000">
                             </div>
-                            <div class="setting-item">
-                                <label>Theme</label>
+                            <div class="settings-card">
+                                <label><i class="fas fa-palette"></i> Theme</label>
                                 <select id="themeSelect">
                                     <option>Dark</option>
                                     <option>Light</option>
                                 </select>
                             </div>
                         </div>
+                        <div class="settings-info">
+                            <p><i class="fas fa-info-circle"></i> Your settings are saved locally in your browser</p>
+                        </div>
                     </div>
                 </div>
             </section>
         </main>
     </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
