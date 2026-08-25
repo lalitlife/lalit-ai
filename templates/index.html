@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lalit AI - Financial Analyst Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>Lalit AI</h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-tab="chat"><i class="fas fa-comments"></i> Chat</a></li>
+                    <li><a href="#" class="nav-link" data-tab="stocks"><i class="fas fa-chart-pie"></i> Stock Analysis</a></li>
+                    <li><a href="#" class="nav-link" data-tab="accounting"><i class="fas fa-calculator"></i> Accounting</a></li>
+                    <li><a href="#" class="nav-link" data-tab="portfolio"><i class="fas fa-wallet"></i> Portfolio</a></li>
+                    <li><a href="#" class="nav-link" data-tab="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="clear-history"><i class="fas fa-trash"></i> Clear Chat</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="toggle-sidebar"><i class="fas fa-bars"></i></button>
+                    <h2 class="page-title">Chat with AI Analyst</h2>
+                </div>
+                <div class="header-right">
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span>Ready</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Tab Content -->
+            <section class="content">
+                <!-- Chat Tab -->
+                <div id="chat" class="tab-content active">
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="welcome-message">
+                                <h3>Welcome to Lalit AI</h3>
+                                <p>Your AI-powered financial analyst is ready to help!</p>
+                                <div class="quick-prompts">
+                                    <button class="quick-prompt" onclick="sendMessage('What are today\'s top stock movers?')">
+                                        📊 Top Movers
+                                    </button>
+                                    <button class="quick-prompt" onclick="sendMessage('Analyze Apple (AAPL) stock')">
+                                        🍎 AAPL Analysis
+                                    </button>
+                                    <button class="quick-prompt" onclick="sendMessage('What\'s the market sentiment today?')">
+                                        📈 Market Sentiment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <form id="chatForm" onsubmit="handleChatSubmit(event)">
+                                <input 
+                                    type="text" 
+                                    id="chatInput" 
+                                    placeholder="Ask about stocks, accounting, or market analysis..." 
+                                    autocomplete="off"
+                                >
+                                <button type="submit" class="send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stock Analysis Tab -->
+                <div id="stocks" class="tab-content">
+                    <div class="stocks-container">
+                        <h3>Stock Analysis</h3>
+                        <div class="search-section">
+                            <input type="text" id="stockSymbol" placeholder="Enter stock symbol (e.g., AAPL)">
+                            <button onclick="analyzeStock()">Analyze</button>
+                        </div>
+                        <div id="stockResults" class="results-container"></div>
+                    </div>
+                </div>
+
+                <!-- Accounting Tab -->
+                <div id="accounting" class="tab-content">
+                    <div class="accounting-container">
+                        <h3>Accounting & Finance</h3>
+                        <div class="accounting-grid">
+                            <div class="card">
+                                <h4>Transaction Tracking</h4>
+                                <form id="transactionForm">
+                                    <input type="text" placeholder="Description">
+                                    <input type="number" placeholder="Amount">
+                                    <select>
+                                        <option>Income</option>
+                                        <option>Expense</option>
+                                    </select>
+                                    <button type="submit">Add Transaction</button>
+                                </form>
+                            </div>
+                            <div class="card">
+                                <h4>Financial Summary</h4>
+                                <div id="financialSummary">
+                                    <p>Total Income: $0</p>
+                                    <p>Total Expenses: $0</p>
+                                    <p>Net Profit/Loss: $0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Tab -->
+                <div id="portfolio" class="tab-content">
+                    <div class="portfolio-container">
+                        <h3>Portfolio Management</h3>
+                        <div class="portfolio-grid">
+                            <div class="card">
+                                <h4>Add Stock</h4>
+                                <form id="portfolioForm">
+                                    <input type="text" placeholder="Symbol">
+                                    <input type="number" placeholder="Quantity">
+                                    <input type="number" placeholder="Purchase Price">
+                                    <button type="submit">Add to Portfolio</button>
+                                </form>
+                            </div>
+                            <div class="card">
+                                <h4>Your Holdings</h4>
+                                <div id="portfolioList"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settings" class="tab-content">
+                    <div class="settings-container">
+                        <h3>Settings</h3>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label>API Model</label>
+                                <select id="modelSelect">
+                                    <option>GPT-4</option>
+                                    <option>GPT-3.5 Turbo</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label>Temperature</label>
+                                <input type="range" min="0" max="1" step="0.1" value="0.7">
+                                <span id="tempValue">0.7</span>
+                            </div>
+                            <div class="setting-item">
+                                <label>Max Tokens</label>
+                                <input type="number" value="2000">
+                            </div>
+                            <div class="setting-item">
+                                <label>Theme</label>
+                                <select id="themeSelect">
+                                    <option>Dark</option>
+                                    <option>Light</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
